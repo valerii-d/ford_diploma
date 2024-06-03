@@ -24,17 +24,16 @@ export default {
   data() {
     return {
       chartData: {
-        labels: ['Продаж нових авто', 'Продаж аксесуарів', 'Виконано обслуговувань'],
+        labels: ['Авто', 'Аксесуари', 'Запчастини'],
         datasets: [
           {
-            backgroundColor: ['green', 'blue', 'yellow'],
+            backgroundColor: ['#2E2ECE', '#CE932E', '#4CE475'],
             data: [32, 40, 80],
           },
         ],
       },
       chartOptions: {
         responsive: true,
-        maintainAspectRatio: false,
       },
     };
   },

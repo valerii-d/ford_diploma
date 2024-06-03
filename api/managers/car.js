@@ -7,7 +7,7 @@ class CarManager {
         try {
             return await mysql.execute(`
             SELECT
-                *,
+                car.*,
                 color.name as color,
                 model.name as model
             FROM

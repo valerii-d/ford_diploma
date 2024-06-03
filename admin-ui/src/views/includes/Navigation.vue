@@ -60,7 +60,7 @@ export default {
         { title: 'Аналітика', icon: 'mdi-chart-areaspline', url: '/' },
         { title: 'Клієнти', icon: 'mdi-account-heart-outline', url: '/clients' },
         { title: 'Співробітники', icon: 'mdi-account-group', url: '/admins' },
-        { title: 'Обслуговування', icon: 'mdi-calendar-check-outline', url: '/orders' },
+        { title: 'Авто послуги', icon: 'mdi-calendar-check-outline', url: '/orders' },
         { title: 'Склад авто', icon: 'mdi-sitemap-outline', url: '/autoWarhouse' },
         { title: 'Запчастини', icon: 'mdi-cog-box', url: '/parts' },
         { title: 'Аксесуари', icon: 'mdi-shape-plus-outline', url: '/accessories' },

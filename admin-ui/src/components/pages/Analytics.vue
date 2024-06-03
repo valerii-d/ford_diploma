@@ -1,20 +1,20 @@
 <template>
     <v-container fluid>
         <v-row class="ma-0 px-4">
-            <v-col :cols="12">
-                <v-card class="d-flex justify-center align-center" min-height="400">
+            <v-col :cols="4">
+                <v-container>
                     <DoughnutVue />
-                </v-card>
+                </v-container>
             </v-col>
-            <v-col class="px-8 py-5" :cols="12">
-                <v-card>
+            <v-col :cols="8">
+                <v-container>
                     <Bar />
-                </v-card>
+                </v-container>
             </v-col>
-            <v-col class="px-8 py-5" :cols="12">
-                <v-card>
-                    <Line />
-                </v-card>
+            <v-col :cols="12">
+                <v-container>
+                    <LineChart />
+                </v-container>
             </v-col>
         </v-row>
     </v-container>
@@ -23,7 +23,7 @@
 <script>
 import Bar from '../common/charts/Bar.vue';
 import DoughnutVue from '../common/charts/Doughnut.vue';
-import Line from '../common/charts/Line.vue';
+import LineChart from '../common/charts/Line.vue';
 
 export default {
   name: 'AnalyticsPage',
@@ -35,7 +35,7 @@ export default {
   components: {
     Bar,
     DoughnutVue,
-    Line,
+    LineChart,
   },
   data() {
     return {

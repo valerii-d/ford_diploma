@@ -38,7 +38,15 @@
             <span class="font-weight-bold">Клієнт:</span>
             {{ order.clientData }}
           </v-container>
-          <v-container fluid class="pb-0 px-0">
+          <v-container v-if="order.accessoriesNames" fluid class="pb-0 px-0">
+            <span class="font-weight-bold">Замовлені аксесуари:</span>
+            {{ order.accessoriesNames }}
+          </v-container>
+          <v-container v-else-if="order.partsNames" fluid class="pb-0 px-0">
+            <span class="font-weight-bold">Замовлені запчастини:</span>
+            {{ order.partsNames }}
+          </v-container>
+          <v-container v-if="order.description" fluid class="pb-0 px-0">
             <span class="font-weight-bold">Опис:</span>
             {{ order.description }}
           </v-container>
@@ -92,10 +100,44 @@
                   'Планове ТО',
                   'Відновлення після ДТП',
                   'Діагностика',
-                  'Обслуговування авто'
+                  'Обслуговування авто',
+                  'Замовлення запчастин',
+                  'Замовлення аксесуарів'
                 ]"
-                label="Оберіть тип сервісу"
+                label="Оберіть тип послуги"
                 v-model="createOrder.serviceType"
+              />
+            </v-col>
+            <v-col :cols="12" v-if="createOrder.serviceType === 'Замовлення запчастин'">
+              <v-autocomplete
+                ref="parts"
+                v-model="createOrder.parts"
+                :rules="[(client) => !!client || 'Обов’язково оберіть хоча б одну запчастину']"
+                :items="partsList"
+                item-text="name"
+                item-value="id"
+                label="Запчастини"
+                placeholder="Оберіть запчастини"
+                chips
+                deletable-chips
+                multiple
+                required
+              />
+            </v-col>
+            <v-col :cols="12" v-else-if="createOrder.serviceType === 'Замовлення аксесуарів'">
+              <v-autocomplete
+                ref="accessory"
+                v-model="createOrder.accessories"
+                :rules="[(client) => !!client || 'Обов’язково оберіть хоча б один аксесуар']"
+                :items="accessoryList"
+                item-text="name"
+                item-value="id"
+                label="Аксесуари"
+                placeholder="Оберіть аксесуар"
+                chips
+                deletable-chips
+                multiple
+                required
               />
             </v-col>
             <v-col :cols="12">
@@ -132,7 +174,9 @@
 
 <script>
 import ClientApi from '@/api/client';
-import ServiceOrder from '@/api/serviceOrder';
+import PartsApi from '@/api/parts';
+import AccessoryApi from '@/api/accessory';
+import ServiceOrderApi from '@/api/serviceOrder';
 
 export default {
   name: 'OrdersPage',
@@ -141,12 +185,16 @@ export default {
     openMenusList: {},
     isModalActive: false,
     clientList: [],
+    partsList: [],
+    accessoryList: [],
     createOrder: {
       car: '',
       vin: '',
       clientId: '',
       description: '',
       serviceType: null,
+      accessories: [],
+      parts: [],
     },
     ordersList: [],
   }),
@@ -156,6 +204,8 @@ export default {
     } else {
       this.getOrders();
       this.getUserListFromApi();
+      this.getPartsList();
+      this.getAccessoryList();
     }
   },
   methods: {
@@ -163,23 +213,31 @@ export default {
       this.clientList = await ClientApi.getList();
     },
     async deleteOrder(id) {
-      await ServiceOrder.delete({ id });
+      await ServiceOrderApi.delete({ id });
       await this.getOrders();
     },
     async addOrder() {
-      await ServiceOrder.add({ ...this.createOrder });
+      await ServiceOrderApi.add({ ...this.createOrder });
       this.createOrder = {
         car: '',
         vin: '',
         clientId: '',
         description: '',
         serviceType: null,
+        accessories: [],
+        parts: [],
       };
       await this.getOrders();
       this.isModalActive = false;
     },
     async getOrders() {
-      this.ordersList = await ServiceOrder.list();
+      this.ordersList = await ServiceOrderApi.list();
+    },
+    async getPartsList() {
+      this.partsList = await PartsApi.list();
+    },
+    async getAccessoryList() {
+      this.accessoryList = await AccessoryApi.list();
     },
   },
 };

@@ -52,7 +52,7 @@
                     mdi-plus-box
                   </v-icon>
                 </v-btn> -->
-                <v-btn @click="deleteProduct(item.id)" text small>
+                <v-btn :key="item.id" @click="deleteProduct(item.id)" text small>
                   <v-icon small color="red">
                     mdi-delete-outline
                   </v-icon>
@@ -150,6 +150,7 @@ export default {
       await this.getCarList();
     },
     async deleteProduct(id) {
+      console.log(id);
       await CarApi.delete({ id });
       await this.getCarList();
     },

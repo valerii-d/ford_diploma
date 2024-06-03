@@ -1,4 +1,5 @@
 const ServiceOrderManager = require('../managers/serviceOrder');
+const ServicePartAccessory = require('../managers/servicePartAccessories');
 
 class ServiceOrder {
 
@@ -6,11 +7,24 @@ class ServiceOrder {
         return ServiceOrderManager.getList();
     }
 
-    static add (data) {
-        return ServiceOrderManager.create(data);
+    static async add (data) {
+        const result = await ServiceOrderManager.create(data);
+        if(data.accessories.length > 0) {
+            return ServicePartAccessory.addAccessory({
+                serviceId: result.insertId,
+                accessories: data.accessories
+            });
+        }
+        if(data.parts.length > 0) {
+            return ServicePartAccessory.addPart({
+                serviceId: result.insertId,
+                parts: data.parts
+            });
+        }
     }
 
-    static remove (id) {
+    static async remove (id) {
+        await ServicePartAccessory.remove(id);
         return ServiceOrderManager.remove(id);
     }
 

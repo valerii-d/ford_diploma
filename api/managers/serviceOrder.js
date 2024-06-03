@@ -7,8 +7,36 @@ class ServiceOrderManager {
         try {
             return await mysql.execute(`
             SELECT
-                so.*,
-                CONCAT(client.name, ' (', client.phone, ')') as clientData
+                so.id as id,
+                so.car as car,
+                so.vin as vin,
+                so.description as description,
+                DATE_FORMAT(so.date_added, '%d-%m-%Y') as dateAdded,
+                so.status as status,
+                so.service_type as serviceType,
+                CONCAT(client.name, ' (', client.phone, ')') as clientData,
+                (   
+                    SELECT 
+                        GROUP_CONCAT(parts.name SEPARATOR ', ') as name
+                    FROM 
+                        service_part_accessory spa
+                    LEFT JOIN
+                        parts
+                        ON parts.id = spa.part_id
+                    WHERE 
+                        spa.service_id = so.id
+                ) AS partsNames,
+                (   
+                    SELECT 
+                        GROUP_CONCAT(accessory.name SEPARATOR ', ') as name
+                    FROM 
+                        service_part_accessory spa
+                    LEFT JOIN
+                        accessory
+                        ON accessory.id = spa.accessory_id
+                    WHERE 
+                        spa.service_id = so.id
+                ) AS accessoriesNames
             FROM
                 service_order so
             LEFT JOIN
