@@ -89,7 +89,7 @@ export default {
     data: [],
     headers: [
       {
-        text: 'Модель', align: 'center', sortable: true, value: 'name',
+        text: 'Модель', align: 'center', sortable: true, value: 'model',
       },
       {
         text: 'Колір', align: 'center', sortable: true, value: 'color',

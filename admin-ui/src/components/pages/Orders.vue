@@ -2,7 +2,7 @@
   <v-row class="justify-start pt-3 mx-0">
     <v-col :cols="12" class="d-flex justify-end">
       <v-btn @click="isModalActive = true" color="primary">
-        Сформувати обслуговування
+        Сформувати замовлення
       </v-btn>
     </v-col>
     <v-col
