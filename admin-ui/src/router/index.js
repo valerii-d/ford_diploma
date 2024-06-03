@@ -9,6 +9,7 @@ import AccessoriesPage from '@/components/pages/Accessories.vue';
 import CarSettingsPage from '@/components/pages/CarSettings.vue';
 import OrdersPage from '@/components/pages/Orders.vue';
 import Authorization from '@/components/pages/Authorization.vue';
+import CarSalesHistory from '@/components/pages/CarSalesHistory.vue';
 import DefaultView from '../views/DefaultView.vue';
 import SignUpView from '../views/SignUpView.vue';
 
@@ -71,6 +72,11 @@ const routes = [
         path: '/carSettings',
         name: 'carSettings',
         component: CarSettingsPage,
+      },
+      {
+        path: '/carSalesHistory',
+        name: 'carSalesHistory',
+        component: CarSalesHistory,
       },
     ],
   },

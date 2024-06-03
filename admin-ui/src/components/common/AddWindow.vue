@@ -27,14 +27,14 @@
             text
             @click="close"
           >
-            Закрыть
+            Закрити
           </v-btn>
           <v-btn
             color="blue darken-1"
             text
             @click="save"
           >
-            Сохранить
+            Зберегти
           </v-btn>
         </v-card-actions>
       </v-card>

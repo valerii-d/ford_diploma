@@ -57,14 +57,15 @@ export default {
   data() {
     return {
       menu: [
-        { title: 'Аналітика', icon: 'mdi-chart-areaspline', url: '/' },
+        { title: 'Облік продажів', icon: 'mdi-currency-usd', url: '/carSalesHistory' },
+        { title: 'Склад авто', icon: 'mdi-sitemap-outline', url: '/autoWarhouse' },
         { title: 'Клієнти', icon: 'mdi-account-heart-outline', url: '/clients' },
         { title: 'Співробітники', icon: 'mdi-account-group', url: '/admins' },
         { title: 'Авто послуги', icon: 'mdi-calendar-check-outline', url: '/orders' },
-        { title: 'Склад авто', icon: 'mdi-sitemap-outline', url: '/autoWarhouse' },
         { title: 'Запчастини', icon: 'mdi-cog-box', url: '/parts' },
         { title: 'Аксесуари', icon: 'mdi-shape-plus-outline', url: '/accessories' },
         { title: 'Налаштунки', icon: 'mdi-car-settings', url: '/carSettings' },
+        { title: 'Аналітика', icon: 'mdi-chart-areaspline', url: '/' },
       ],
     };
   },

@@ -34,6 +34,17 @@ class CarManager {
         `);
     }
 
+    static async update(carId) {
+        return await mysql.execute(`
+            UPDATE
+                car
+            SET
+                quantity = quantity - 1
+            WHERE 
+                id = ${carId}
+        `);
+    }
+
     static async remove(id) {
         return await mysql.execute(`
             DELETE FROM
