@@ -13,8 +13,8 @@
                 </v-list-item-avatar>
 
                 <v-list-item-content>
-                    <v-list-item-title>Кращий Співробітник</v-list-item-title>
-                    <v-list-item-subtitle>Увійшов</v-list-item-subtitle>
+                    <v-list-item-title>{{ user.name }}</v-list-item-title>
+                    <v-list-item-subtitle>{{ user.role }}</v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
         </template>
@@ -56,18 +56,54 @@ export default {
   name: 'NavigationPanel',
   data() {
     return {
-      menu: [
-        { title: 'Облік продажів', icon: 'mdi-currency-usd', url: '/carSalesHistory' },
-        { title: 'Склад авто', icon: 'mdi-sitemap-outline', url: '/autoWarhouse' },
-        { title: 'Клієнти', icon: 'mdi-account-heart-outline', url: '/clients' },
-        { title: 'Співробітники', icon: 'mdi-account-group', url: '/admins' },
-        { title: 'Авто послуги', icon: 'mdi-calendar-check-outline', url: '/orders' },
-        { title: 'Запчастини', icon: 'mdi-cog-box', url: '/parts' },
-        { title: 'Аксесуари', icon: 'mdi-shape-plus-outline', url: '/accessories' },
-        { title: 'Налаштунки', icon: 'mdi-car-settings', url: '/carSettings' },
-        { title: 'Аналітика', icon: 'mdi-chart-areaspline', url: '/' },
-      ],
+      user: {
+        name: null,
+        email: null,
+        role: null,
+      },
     };
+  },
+  mounted() {
+    this.user.email = this.$cookies.get('userEmail');
+    this.user.name = this.$cookies.get('userName');
+    this.user.role = this.$cookies.get('userRole');
+  },
+  computed: {
+    menu() {
+      if (this.user.role === 'Генеральний директор') {
+        console.log(1);
+        return [
+          { title: 'Аналітика', icon: 'mdi-chart-areaspline', url: '/' },
+          { title: 'Облік продажів', icon: 'mdi-currency-usd', url: '/carSalesHistory' },
+          { title: 'Склад авто', icon: 'mdi-sitemap-outline', url: '/autoWarhouse' },
+          { title: 'Клієнти', icon: 'mdi-account-heart-outline', url: '/clients' },
+          { title: 'Співробітники', icon: 'mdi-account-group', url: '/admins' },
+          { title: 'Авто послуги', icon: 'mdi-calendar-check-outline', url: '/orders' },
+          { title: 'Запчастини', icon: 'mdi-cog-box', url: '/parts' },
+          { title: 'Аксесуари', icon: 'mdi-shape-plus-outline', url: '/accessories' },
+          { title: 'Налаштунки', icon: 'mdi-car-settings', url: '/carSettings' },
+        ];
+      } if (this.user.role === 'Автомеханік') {
+        return [
+          { title: 'Авто послуги', icon: 'mdi-calendar-check-outline', url: '/orders' },
+        ];
+      } if (this.user.role === 'Продавець консультант') {
+        return [
+          { title: 'Облік продажів', icon: 'mdi-currency-usd', url: '/carSalesHistory' },
+          { title: 'Склад авто', icon: 'mdi-sitemap-outline', url: '/autoWarhouse' },
+          { title: 'Клієнти', icon: 'mdi-account-heart-outline', url: '/clients' },
+          { title: 'Запчастини', icon: 'mdi-cog-box', url: '/parts' },
+          { title: 'Аксесуари', icon: 'mdi-shape-plus-outline', url: '/accessories' },
+        ];
+      } if (this.user.role === 'Бугалтер') {
+        return [
+          { title: 'Аналітика', icon: 'mdi-chart-areaspline', url: '/' },
+          { title: 'Облік продажів', icon: 'mdi-currency-usd', url: '/carSalesHistory' },
+          { title: 'Співробітники', icon: 'mdi-account-group', url: '/admins' },
+        ];
+      }
+      return [];
+    },
   },
   methods: {
     logout() {

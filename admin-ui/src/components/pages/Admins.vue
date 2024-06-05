@@ -1,25 +1,25 @@
 <template>
   <v-container fluid>
-    <v-row class="d-flex justify-end mb-3">
+    <v-row v-if="canEdit" class="d-flex justify-end mb-3">
       <v-col cols="2" class="d-flex justify-end">
         <v-btn @click="isModalActive = true" color="primary">
-          Додати адміна
+          Додати співробітника
         </v-btn>
       </v-col>
     </v-row>
 
-    <v-row justify="center">
+    <v-row justify="center" class="py-5">
       <v-dialog v-model="isModalActive" width="600">
         <v-card>
           <v-card-title>
-            Додати адміна
+            Додати співробітника
           </v-card-title>
 
           <v-card-text>
             <v-row>
               <v-col :cols="6">
                 <v-text-field
-                    label="Ім’я"
+                    label="Ім’я та Фамілія"
                     required
                     v-model="addUserData.name"
                 />
@@ -42,7 +42,7 @@
                 <v-select
                   :items="[
                     'Генеральний директор',
-                    'Авто механік',
+                    'Автомеханік',
                     'Продавець консультант',
                     'Бугалтер'
                   ]"
@@ -120,7 +120,7 @@
                 <v-select
                     :items="[
                       'Генеральний директор',
-                      'Авто механік',
+                      'Автомеханік',
                       'Продавець консультант',
                       'Бугалтер'
                     ]"
@@ -170,7 +170,7 @@
       :items-per-page="5"
       class="elevation-1"
     >
-      <template v-slot:[`item.action`]="{ item }">
+      <template v-if="canEdit" v-slot:[`item.action`]="{ item }">
         <v-btn text>
           <v-icon @click="editUserOpenModal(item)" color="orange">
             mdi-pencil
@@ -193,6 +193,7 @@ import hash from '@/helpers/hash';
 export default {
   name: 'AdminsPage',
   data: () => ({
+    canEdit: true,
     isModalActive: false,
     isEditModalActive: false,
     isPassShowed: false,
@@ -235,6 +236,8 @@ export default {
     if (!this.$cookies.get('userEmail')) {
       return this.$router.push('/authorize');
     }
+    const userRole = this.$cookies.get('userRole');
+    this.canEdit = ['Генеральний директор'].includes(userRole);
     return this.getUserListFromApi();
   },
   methods: {

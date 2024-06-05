@@ -12,14 +12,14 @@
         <v-dialog v-model="isModalActive" width="600">
           <v-card>
             <v-card-title>
-              Додати адміна
+              Додати клієнта
             </v-card-title>
 
             <v-card-text>
               <v-row>
                 <v-col :cols="6">
                   <v-text-field
-                      label="Ім’я"
+                      label="Ім’я та Фамілія"
                       required
                       v-model="addUserData.name"
                   />

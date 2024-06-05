@@ -1,9 +1,9 @@
 const MySQL = require('../db/MySQL');
 const mysql = new MySQL();
 
-class CarSalesHistoryManager {
+class SalesHistoryManager {
 
-    static async getList() {
+    static async getCarList() {
         try {
             return await mysql.execute(`
                 SELECT
@@ -42,7 +42,24 @@ class CarSalesHistoryManager {
         }
     }
 
-    static async create(data) {
+    static async getSalesCount(data) {
+        try {
+            return await mysql.execute(`
+                SELECT
+                    COUNT(CASE WHEN car_id IS NOT NULL THEN 1 END) AS cars,
+                    COUNT(CASE WHEN part_id IS NOT NULL THEN 1 END) AS parts,
+                    COUNT(CASE WHEN accessory_id IS NOT NULL THEN 1 END) AS accessories
+                FROM
+                    sales_history
+                WHERE
+                    date_added BETWEEN '${data.firstDayFormatted}' AND '${data.lastDayFormatted}'
+            `);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    static async createCar(data) {
         return await mysql.execute(`
             INSERT INTO
                 sales_history
@@ -52,6 +69,34 @@ class CarSalesHistoryManager {
         `);
     }
 
+    static async createAccessory(data) {
+        const valuesToInsert = [];
+        data.accessories.forEach(value => {
+            valuesToInsert.push(`(${data.clientId}, ${value})`);
+        });
+        return await mysql.execute(`
+            INSERT INTO
+                sales_history
+                (client_id, accessory_id)
+            VALUES
+                ${valuesToInsert.join(',')}
+        `);
+    }
+
+    static async createPart(data) {
+        const valuesToInsert = [];
+        data.parts.forEach(value => {
+            valuesToInsert.push(`(${data.clientId}, ${value})`);
+        });
+        return await mysql.execute(`
+            INSERT INTO
+                sales_history
+                (client_id, part_id)
+            VALUES
+                ${valuesToInsert.join(',')}
+        `);
+    }
+
 }
 
-module.exports = CarSalesHistoryManager;
+module.exports = SalesHistoryManager;

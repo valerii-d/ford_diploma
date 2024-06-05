@@ -18,6 +18,10 @@ class Employee {
         return EmployeeManager.editEmployee(data);
     }
 
+    static auth (data) {
+        return EmployeeManager.auth(data);
+    }
+
 }
 
 module.exports = Employee;

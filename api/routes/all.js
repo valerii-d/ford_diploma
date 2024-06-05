@@ -9,7 +9,7 @@ router.use('/car', require('./car.js'));
 router.use('/parts', require('./parts.js'));
 router.use('/client', require('./client.js'));
 router.use('/serviceOrder', require('./serviceOrder.js'));
-router.use('/carSalesHistory', require('./carSalesHistory.js'));
+router.use('/salesHistory', require('./salesHistory.js'));
 
 router.get('/health', (req, res) => {
     res.send('I\'m okay');

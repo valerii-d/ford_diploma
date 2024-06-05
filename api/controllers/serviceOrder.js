@@ -1,5 +1,6 @@
 const ServiceOrderManager = require('../managers/serviceOrder');
 const ServicePartAccessory = require('../managers/servicePartAccessories');
+const CarManager = require('../managers/car');
 
 class ServiceOrder {
 
@@ -10,6 +11,7 @@ class ServiceOrder {
     static async add (data) {
         const result = await ServiceOrderManager.create(data);
         if(data.accessories.length > 0) {
+            CarManager
             return ServicePartAccessory.addAccessory({
                 serviceId: result.insertId,
                 accessories: data.accessories

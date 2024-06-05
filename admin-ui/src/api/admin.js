@@ -16,8 +16,20 @@ class Admin {
     }
   }
 
-  static async getAdminByEmailAndPass() {
-    return '';
+  static async getAdminByEmailAndPass(data) {
+    try {
+      const response = await request.post('/employee/auth', data, {
+        headers: {
+          'Referrer-Police': 'strict-origin-when-cross-origin',
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 
   static async updateAdminData(data) {

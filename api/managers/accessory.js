@@ -26,6 +26,21 @@ class AccessoryManager {
         `);
     }
 
+    static async update(accessoryIds) {
+        const valuesToInsert = [];
+        accessoryIds.forEach(value => {
+            valuesToInsert.push(value);
+        });
+        return await mysql.execute(`
+            UPDATE
+                accessory
+            SET
+                quantity = quantity - 1
+            WHERE 
+                id IN (${valuesToInsert.join(',')})
+        `);
+    }
+
     static async remove(id) {
         return await mysql.execute(`
             DELETE FROM

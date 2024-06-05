@@ -9,6 +9,9 @@ router.post('/create', async (req, res) => {
     res.send(await EmployeesController.createEmployee(req.body));
 })
 
+router.post('/auth', async (req, res) => {
+    res.send(await EmployeesController.auth(req.body));
+})
 
 router.post('/edit', async (req, res) => {
     res.send(await EmployeesController.editEmployee(req.body));

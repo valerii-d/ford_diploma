@@ -34,6 +34,17 @@ class PartsManager {
         `);
     }
 
+    static async update(partId) {
+        return await mysql.execute(`
+            UPDATE
+                parts
+            SET
+                quantity = quantity - 1
+            WHERE 
+                id = ${partId}
+        `);
+    }
+
     static async remove(id) {
         return await mysql.execute(`
             DELETE FROM

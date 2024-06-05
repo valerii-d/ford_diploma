@@ -35,6 +35,21 @@ class AdminManager {
         `);
     }
 
+    static async auth(data) {
+        return await mysql.execute(`
+            SELECT
+                name,
+                email,
+                phone,
+                role
+            FROM
+                employee
+            WHERE
+                email = '${data.email}'
+                AND password = '${data.password}'
+        `);
+    }
+
     static async editEmployee(data) {
         return await mysql.execute(`
             UPDATE

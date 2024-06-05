@@ -21,21 +21,31 @@ export default {
   components: {
     Doughnut,
   },
+  props: {
+    currentMonthSales: {
+      type: Object,
+      default: () => ({}),
+    }
+  },
   data() {
     return {
-      chartData: {
-        labels: ['Авто', 'Аксесуари', 'Запчастини'],
-        datasets: [
-          {
-            backgroundColor: ['#2E2ECE', '#CE932E', '#4CE475'],
-            data: [32, 40, 80],
-          },
-        ],
-      },
       chartOptions: {
         responsive: true,
       },
     };
+  },
+  computed: {
+    chartData() {
+      return {
+        labels: ['Авто', 'Аксесуари', 'Запчастини'],
+        datasets: [
+          {
+            backgroundColor: ['#2E2ECE', '#CE932E', '#4CE475'],
+            data: [ this.currentMonthSales.cars, this.currentMonthSales.accessories, this.currentMonthSales.parts],
+          },
+        ],
+      }
+    }
   },
 };
 </script>

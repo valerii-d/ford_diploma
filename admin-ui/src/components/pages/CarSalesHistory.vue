@@ -26,7 +26,11 @@
               />
             </v-col>
             <v-col :cols="6" class="d-flex justify-end">
-              <v-btn @click="isSaleModalActive = true" color="primary">
+              <v-btn
+                v-if="['Генеральний директор', 'Продавець консультант'].includes(userRole)"
+                @click="isSaleModalActive = true"
+                color="primary"
+              >
                 Продати авто
               </v-btn>
             </v-col>
@@ -57,6 +61,7 @@ export default {
     AddProduct,
   },
   data: () => ({
+    userRole: '',
     backEndUrl: process.env.VUE_APP_API_URL,
     tableSearch: '',
     isSaleModalActive: false,
@@ -100,6 +105,7 @@ export default {
     if (!this.$cookies.get('userEmail')) {
       this.$router.push('/authorize');
     } else {
+      this.userRole = this.$cookies.get('userRole');
       this.getCarSalesList();
     }
   },

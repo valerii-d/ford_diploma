@@ -177,6 +177,7 @@ import ClientApi from '@/api/client';
 import PartsApi from '@/api/parts';
 import AccessoryApi from '@/api/accessory';
 import ServiceOrderApi from '@/api/serviceOrder';
+import SalesHistory from '@/api/salesHistory';
 
 export default {
   name: 'OrdersPage',
@@ -217,6 +218,17 @@ export default {
       await this.getOrders();
     },
     async addOrder() {
+      if (this.createOrder.serviceType === 'Замовлення запчастин') {
+        await SalesHistory.addPart({
+          clientId: this.createOrder.clientId,
+          parts: this.createOrder.parts,
+        });
+      } else if (this.createOrder.serviceType === 'Замовлення аксесуарів') {
+        await SalesHistory.addAccessory({
+          clientId: this.createOrder.clientId,
+          accessories: this.createOrder.accessories,
+        });
+      }
       await ServiceOrderApi.add({ ...this.createOrder });
       this.createOrder = {
         car: '',

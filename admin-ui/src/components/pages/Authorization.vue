@@ -50,6 +50,9 @@
 </template>
 
 <script>
+import adminApi from '@/api/admin';
+import hash from '@/helpers/hash';
+
 export default {
   name: 'AuthorizationPage',
   data: () => ({
@@ -73,16 +76,24 @@ export default {
     }
   },
   methods: {
-    signIn() {
-      if (
-        this.password !== this.dataToLogIn.pass
-          && this.email !== this.dataToLogIn.login
-      ) {
-        this.errorMsg = 'Невірно введений логін або пароль';
-        return;
+    async signIn() {
+      try {
+        const result = await adminApi.getAdminByEmailAndPass({
+          email: this.email,
+          password: hash(this.password),
+        });
+        console.log(result);
+        if (!result?.length) {
+          this.errorMsg = 'Невірно введений логін або пароль';
+          return;
+        }
+        this.$cookies.set('userEmail', result[0].email);
+        this.$cookies.set('userName', result[0].name);
+        this.$cookies.set('userRole', result[0].role);
+        this.$router.push('/');
+      } catch (error) {
+        this.errorMsg = 'Щось пішло не так, спробуйте ще';
       }
-      this.$cookies.set('userEmail', this.email);
-      this.$router.push('/');
     },
   },
 };
