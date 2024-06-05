@@ -21,18 +21,13 @@
 </template>
 
 <script>
+import SalesHistory from '@/api/salesHistory';
 import Bar from '../common/charts/Bar.vue';
 import DoughnutVue from '../common/charts/Doughnut.vue';
 import LineChart from '../common/charts/Line.vue';
-import SalesHistory from '@/api/salesHistory';
 
 export default {
   name: 'AnalyticsPage',
-  mounted() {
-    if (!this.$cookies.get('userEmail')) {
-      this.$router.push('/authorize');
-    }
-  },
   components: {
     Bar,
     DoughnutVue,
@@ -44,10 +39,15 @@ export default {
     };
   },
   mounted() {
-    this.getCurrentMonthSales();
+    if (!this.$cookies.get('userEmail')) {
+      this.$router.push('/authorize');
+    } else {
+      this.getCurrentMonthSales();
+    }
   },
   methods: {
     async getCurrentMonthSales() {
+      /* eslint-disable prefer-destructuring */
       const currentDate = new Date();
 
       const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
@@ -63,10 +63,10 @@ export default {
     },
     formatDate(date) {
       const year = date.getFullYear();
-      const month = ('0' + (date.getMonth() + 1)).slice(-2);
-      const day = ('0' + date.getDate()).slice(-2);
+      const month = (`0${date.getMonth() + 1}`).slice(-2);
+      const day = (`0${date.getDate()}`).slice(-2);
       return `${year}-${month}-${day}`;
-    }
+    },
   },
 };
 

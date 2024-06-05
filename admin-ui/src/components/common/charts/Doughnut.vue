@@ -25,7 +25,7 @@ export default {
     currentMonthSales: {
       type: Object,
       default: () => ({}),
-    }
+    },
   },
   data() {
     return {
@@ -41,11 +41,15 @@ export default {
         datasets: [
           {
             backgroundColor: ['#2E2ECE', '#CE932E', '#4CE475'],
-            data: [ this.currentMonthSales.cars, this.currentMonthSales.accessories, this.currentMonthSales.parts],
+            data: [
+              this.currentMonthSales.cars,
+              this.currentMonthSales.accessories,
+              this.currentMonthSales.parts,
+            ],
           },
         ],
-      }
-    }
+      };
+    },
   },
 };
 </script>

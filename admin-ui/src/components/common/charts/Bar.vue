@@ -23,7 +23,7 @@ export default {
     currentMonthSales: {
       type: Object,
       default: () => ({}),
-    }
+    },
   },
   data() {
     return {
@@ -53,8 +53,8 @@ export default {
             backgroundColor: '#2E2ECE',
           },
         ],
-      }
-    }
+      };
+    },
   },
 };
 </script>
