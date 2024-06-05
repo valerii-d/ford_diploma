@@ -71,9 +71,8 @@ export default {
   computed: {
     menu() {
       if (this.user.role === 'Генеральний директор') {
-        console.log(1);
         return [
-          { title: 'Аналітика', icon: 'mdi-chart-areaspline', url: '/' },
+          { title: 'Аналітика', icon: 'mdi-chart-areaspline', url: '/analytics' },
           { title: 'Облік продажів', icon: 'mdi-currency-usd', url: '/carSalesHistory' },
           { title: 'Склад авто', icon: 'mdi-sitemap-outline', url: '/autoWarhouse' },
           { title: 'Клієнти', icon: 'mdi-account-heart-outline', url: '/clients' },
@@ -97,7 +96,7 @@ export default {
         ];
       } if (this.user.role === 'Бугалтер') {
         return [
-          { title: 'Аналітика', icon: 'mdi-chart-areaspline', url: '/' },
+          { title: 'Аналітика', icon: 'mdi-chart-areaspline', url: '/analytics' },
           { title: 'Облік продажів', icon: 'mdi-currency-usd', url: '/carSalesHistory' },
           { title: 'Співробітники', icon: 'mdi-account-group', url: '/admins' },
         ];

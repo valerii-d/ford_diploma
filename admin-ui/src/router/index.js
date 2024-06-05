@@ -34,8 +34,8 @@ const routes = [
     component: DefaultView,
     children: [
       {
-        path: '',
-        name: 'home',
+        path: '/analytics',
+        name: 'analytics',
         component: AnalyticsPage,
       },
       {
