@@ -98,6 +98,7 @@ export default {
         return [
           { title: 'Аналітика', icon: 'mdi-chart-areaspline', url: '/analytics' },
           { title: 'Облік продажів', icon: 'mdi-currency-usd', url: '/carSalesHistory' },
+          { title: 'Авто послуги', icon: 'mdi-calendar-check-outline', url: '/orders' },
           { title: 'Співробітники', icon: 'mdi-account-group', url: '/admins' },
         ];
       }
