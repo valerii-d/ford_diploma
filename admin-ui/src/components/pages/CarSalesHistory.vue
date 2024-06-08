@@ -83,6 +83,9 @@ export default {
         text: 'Об’єм двигуна', align: 'center', sortable: true, value: 'carEngineCapacity',
       },
       {
+        text: 'VIN', align: 'center', sortable: true, value: 'vin',
+      },
+      {
         text: 'Ціна (₴)', align: 'center', sortable: true, value: 'carPrice',
       },
       {

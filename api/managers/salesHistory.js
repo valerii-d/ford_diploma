@@ -8,6 +8,7 @@ class SalesHistoryManager {
             return await mysql.execute(`
                 SELECT
                     sh.id as id,
+                    sh.vin as vin,
                     DATE_FORMAT(sh.date_added, '%d-%m-%Y') as dateAdded,
                     car.equipment as carEquipment,
                     car.engine_type as carEngineType,
@@ -63,9 +64,9 @@ class SalesHistoryManager {
         return await mysql.execute(`
             INSERT INTO
                 sales_history
-                (client_id, car_id)
+                (client_id, car_id, vin)
             VALUES
-                ('${data.clientId}', '${data.carId}')
+                ('${data.clientId}', '${data.carId}', '${data.vin}')
         `);
     }
 

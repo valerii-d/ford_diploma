@@ -37,6 +37,14 @@
                 />
               </v-col>
               <v-col :cols=12>
+                <v-text-field
+                  :rules="[rules.required, rules.length]"
+                  label="VIN код"
+                  required
+                  v-model="sale.vin"
+                />
+              </v-col>
+              <v-col :cols=12>
                 <p class="font-weight-black text-center">
                     Сума замовлення: {{ orderSum }}₴
                 </p>
@@ -56,7 +64,7 @@
               color="blue darken-1"
               text
               @click="saleCar"
-              :disabled="!sale.carId || !sale.clientId"
+              :disabled="!sale.carId || !sale.clientId || sale.vin.length === 0"
             >
               Продати
             </v-btn>
@@ -82,8 +90,13 @@ export default {
     clientsList: [],
     carsList: [],
     sale: {
+      vin: '',
       clientId: null,
       carId: null,
+    },
+    rules: {
+      required: (value) => !!value || 'Це поле обов’язкове для заповнення',
+      length: (v) => v.length === 17 || 'VIN-код має містити 17 символів',
     },
   }),
   async mounted() {
@@ -95,6 +108,9 @@ export default {
     }
   },
   computed: {
+    isSaleButtonAvailable() {
+      return this.sale.vin.length > 0 && !!this.sale.clientId && !!this.sale.carId;
+    },
     orderSum() {
       let price = null;
       this.carsList.forEach((car) => {

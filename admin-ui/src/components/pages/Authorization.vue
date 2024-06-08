@@ -61,7 +61,7 @@ export default {
     isPassShown: false,
     errorMsg: '',
     rules: {
-      required: (value) => !!value || 'Required.',
+      required: (value) => !value?.length || 'Required.',
       min: (v) => v.length >= 8 || 'Min 8 characters',
       emailMatch: () => ('The email and password you entered don\'t match'),
     },
