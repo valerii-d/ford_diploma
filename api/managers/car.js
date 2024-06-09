@@ -18,6 +18,8 @@ class CarManager {
             LEFT JOIN
                 model
                 ON model.id = car.model_id
+            WHERE
+                car.quantity > 0
         `);
         } catch (error) {
             console.error(error);
